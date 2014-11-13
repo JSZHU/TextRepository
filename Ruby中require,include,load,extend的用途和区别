@@ -21,35 +21,19 @@ extend 用来在一个对象（object，或者说是instance）中引入一个�
 
 例如：
    module Mod
+     def hello2
+       "Hello from Mod.n"
+     end
+   end
 
-  def hello2
+   class Klass
+     def hello
+       "Hello from Klass.n"
+     end
+   end
 
-    "Hello from Mod.n"
-
-  end
-
-end
-
- 
-
-class Klass
-
-  def hello
-
-    "Hello from Klass.n"
-
-  end
-
-end
-
- 
-
-k = Klass.new
-
-k.hello   #"Hello from Klass.n"
-
-k.hello2  # NoMethodError: undefined method `hello2' …
-
-k.extend(Mod)   #<0x2e4c530>
-
-k.hello  #"Hello from Mod.n" 
+   k = Klass.new
+   k.hello   #"Hello from Klass.n"
+   k.hello2  # NoMethodError: undefined method `hello2' …
+   k.extend(Mod)   #<0x2e4c530>
+   k.hello  #"Hello from Mod.n" 
