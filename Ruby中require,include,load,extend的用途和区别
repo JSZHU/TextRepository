@@ -1,0 +1,55 @@
+ 1．require( aString ) -> true or false
+ 
+   Ruby试图载入一个名为aString的库，如果成功了就返回true，否则返回false。
+   如果给定的值不是一个绝对路径，那么将会在$LOAD_PATH($:)中查找。
+   如果给定的名字带有.rb，则作为源文件载入；如果扩展名为.so,.o,.dll等（根据不同平台），Ruby将这些作为扩展程序来载入；否则，
+Ruby会自动尝试在给定的文件名后面加.rb,.so,.dll等。已经载入的库会放到数组$"中，已经在$"里的则不会被重复装载。
+
+2．load( aFileName, wrap=false ) -> true
+
+  装载并执行aFileName文件，文件搜索方法同上面的require。wrap是可选参数，默认为false，如果设为true，则这个文件将在匿名模块下
+运行，从而包括调用者的名字空间。任何aFileName里面的局部变量在装载它的环境下是不可用的。
+
+3．include
+
+  include主要用来将一个模块插入（mix）到一个类或者其它模块。这个模块的方法在引入它的类或模块中以函数的形式调用（没有一个
+receiver）。这个指令运行时会执行Module.append_features方法。
+
+4．extend
+
+extend 用来在一个对象（object，或者说是instance）中引入一个模块，这个类从而也具备了这个模块的方法。
+
+例如：
+   module Mod
+
+  def hello2
+
+    "Hello from Mod.n"
+
+  end
+
+end
+
+ 
+
+class Klass
+
+  def hello
+
+    "Hello from Klass.n"
+
+  end
+
+end
+
+ 
+
+k = Klass.new
+
+k.hello   #"Hello from Klass.n"
+
+k.hello2  # NoMethodError: undefined method `hello2' …
+
+k.extend(Mod)   #<0x2e4c530>
+
+k.hello  #"Hello from Mod.n" 
